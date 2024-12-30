@@ -15,6 +15,7 @@ module.exports.registerCaptain = async(req,res,next)=>{
 
     const {fullname,email,password,vehicle} = req.body
 
+
     const isCaptainAlreadyExist = await captainModel.findOne({email})
 
     if(isCaptainAlreadyExist){
@@ -33,7 +34,7 @@ module.exports.registerCaptain = async(req,res,next)=>{
         color:vehicle.color,
         plate:vehicle.plate,
         capacity:vehicle.capacity,
-        vehicleType:vehicle.vehicleType
+        vehicleType:vehicle.type
     })
 
     const token = captain.generateAUthToken()

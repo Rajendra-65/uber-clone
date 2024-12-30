@@ -1,23 +1,45 @@
-import React from "react";
+import React,{useState,useContext} from "react";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useNavigate} from 'react-router-dom'
+import axios from 'axios'
+import  {UserDataContext} from '../context/UserContext';
 
 const UserSignup = () => { 
 
     const [email,setEmail] = useState('')
     const [password,setPassword] = useState('')
+    const [firstname,setFirstName] = useState('')
+    const [lastname,setLastName] = useState('')
     const [userData,setUserData] = useState({})
     
-    const submitHandler = (e) =>{
+    const navigate = useNavigate()
+
+    const {user,setUser} = React.useContext(UserDataContext)
+
+    const submitHandler = async(e) =>{
         e.preventDefault()
-        setUserData({
-            email:email,
-            password:password
-        })
-        console.log(userData)
-        console.log(email,password)
+        const newUser = {
+                fullname:{
+                    firstname:firstname,
+                    lastname:lastname
+                },
+                email:email,
+                password:password
+        }
+        const response = await axios.post(
+            `${import.meta.env.VITE_BASE_URL}/user/register`,newUser
+        )
+
+        if(response.status === 201){
+            const data = response.data
+            setUser(data.user)
+            localStorage.setItem('token',data.token)
+            navigate('/home')
+        }
         setEmail('')
         setPassword('')
+        setFirstName('')
+        setLastName('')
     }
 
     return (
@@ -44,15 +66,39 @@ const UserSignup = () => {
                             required 
                             className='bg-[#eeeeee] w-1/2  rounded px-4 py-2 border  text-xl placeholder:text-base'
                             type="text" 
+                            value={firstname}
+                            onChange={(e)=>{
+                                setFirstName(e.target.value)
+                            }}
                             placeholder="FirstName" 
                         />
                         <input
                             required
                             type='text'
                             className='bg-[#eeeeee] w-1/2  rounded px-4 py-2 border  text-xl placeholder:text-base'
+                            value={lastname}
+                            onChange={(e)=>{
+                                setLastName(e.target.value)
+                            }}
                             placeholder="LastName" 
                         />
                     </div>
+
+                    <h3
+                        className='text-base mb-2'
+                    >   
+                        Enter Email
+                    </h3>
+                    <input 
+                        required 
+                        className='bg-[#eeeeee] mb-5 rounded px-4 py-2 border w-full text-lg placeholder:text-base'
+                        value={email}
+                        onChange={(e)=>{
+                            setEmail(e.target.value)
+                        }}
+                        type="text" 
+                        placeholder="Enter your email" 
+                    />
                     
                     <h3
                         className='text-base mb-2'
@@ -73,7 +119,7 @@ const UserSignup = () => {
                         type="submit"
                         className='bg-[#111] text-white fond-semibold mb-3 rounded px-4 py-2  w-full text-base placeholder:text-base'
                     >
-                        Login
+                        Create Account
                     </button>
                     
                 </form>
@@ -87,12 +133,10 @@ const UserSignup = () => {
                 </p>
             </div>
             <div>
-                <Link
-                    to='/login'
-                    className='bg-green-500 flex items-center justify-center  text-white fond-semibold mb-3 rounded px-4 py-2 border w-full text-base'
-                >
-                    Sign in as User
-                </Link>
+                <p className="text-xs ">
+                    By Proceeding , you consent to  get calls, Whatsapp or SMS
+                    Message ,including by automated means,from user and its affiliates to the number provided
+                </p>
             </div>
         </div>
     );

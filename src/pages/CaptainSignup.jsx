@@ -22,6 +22,9 @@ const CaptainSignup = () =>{
 
   const submitHandler = async(e) =>{
     e.preventDefault()
+    const playload = {vehicleType}
+    const vehicleTypeValue = playload.vehicleType
+    
     const captainData = {
         fullname:{
             firstname:firstname,
@@ -33,7 +36,7 @@ const CaptainSignup = () =>{
             color:vehicleColor,
             plate:vehiclePlate,
             capacity:vehicleCapacity,
-            type:vehicleType
+            type:vehicleTypeValue
         }
     }
 

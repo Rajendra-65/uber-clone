@@ -6,6 +6,7 @@ module.exports.createCaptain = async (
         color,plate,capacity,vehicleType
     }
 ) => {
+    console.log(firstname,lastname,email,password,color,plate,capacity,vehicleType) 
     if(!firstname, !lastname,!email,!password,!color,
         !plate,!capacity,!vehicleType
     ){

@@ -1,3 +1,4 @@
+const blacklistTokenModel = require('../models/blacklistToken.model')
 const captainModel  = require('../models/captain.models')
 
 const captainService = require('../services/captain.service')
@@ -42,4 +43,41 @@ module.exports.registerCaptain = async(req,res,next)=>{
         captain
     })
 
+}
+
+module.exports.logInCaptain = async(req,res,next)=>{
+    const errors = validationResult(req)
+    if(!errors.isEmpty()){
+        return res.status(400).json({
+            errors:errors.array()
+        })
+    }
+    const {email,password} = req.body;
+    const captain = await captainModel.findOne({email}).select('+password')
+    const isMatch = await captain.comparePassword(password)
+    
+    if (!isMatch){
+        return res.status(400).json({
+            message:'Invalid Password'
+        })
+    }
+
+    const token = captain.generateAUthToken();
+    res.cookie('token',token)
+    res.status(200).json({token,captain})
+}
+
+module.exports.getCaptainProfile = async(req,res,next) => {
+    res.status(200).json({
+        captain:req.captain
+    })
+}
+
+module.exports.logoutCaptain = async(req,res,next) =>{
+    const token = req.cookies?.token || req.headers?.authorization?.split(' ')[ 1 ]
+    await blacklistTokenModel.create({token})
+    res.clearCookie('token')
+    res.status(200).json({
+        message:'Logout Successfully'
+    })
 }

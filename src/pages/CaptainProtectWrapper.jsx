@@ -15,7 +15,7 @@ const CaptainProtectorWrapper = ({
         if(!token){
             navigate('/captain/login')
         }
-    },[ token,navigate ])
+    },[ token ,navigate])
 
     axios.get(`${import.meta.env.VITE_BASE_URL}/captain/profile`, {
         headers: {

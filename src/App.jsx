@@ -11,6 +11,7 @@ import UserLogout from './pages/UserLogout'
 import CaptainHome from './pages/CaptainHome'
 import CaptainProtectorWrapper from './pages/CaptainProtectWrapper'
 import Riding from './pages/Riding'
+import CaptainRiding from './pages/CaptainRiding'
 
 const App = () =>{
   return(
@@ -20,6 +21,7 @@ const App = () =>{
         <Route path='/login' element={<UserLogin/>} />
         <Route path='/riding' element={<Riding/>}/>
         <Route path='/signup' element={<UserSignup/>} />
+        <Route path='/captain-riding' element={<CaptainRiding/>} />
         <Route path='/captain/signup' element={<CaptainSignup/>} />
         <Route path='/captain/login' element={<CaptainLogin/>} />
         <Route path='/home' element={
@@ -35,10 +37,9 @@ const App = () =>{
             </UserProtectorWrapper>}
         />
         <Route path='/captain-home' element={
-          <CaptainProtectorWrapper>
             <CaptainHome/>
-          </CaptainProtectorWrapper>
         }/>
+
       </Routes>
     </div>
   )

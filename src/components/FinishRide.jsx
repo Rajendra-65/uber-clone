@@ -1,23 +1,21 @@
-import React,{useState} from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 
-const ConfirmRidePopup = (props) => {
-  const [otp,setOtp] = useState('')
-  const submitHandler = (e) =>{
-    e.preventDefault()
-  }
+const FinishRide = (props) => {
   return (
     <div>
       <h5
         className="p-1 text-center w-full absolute top-0"
         onClick={() => {
-          props.setRidePopupPanel(false);
+          props.setFinishRidePanel(false);
         }}
       >
         <i className="text-3xl text-gray-200 ri-arrow-down-wide-line"></i>
       </h5>
-      <h3 className="text-2xl font-semibold mb-5">Confirm This Ride to start</h3>
-      <div className="flex items-center justify-between bg-yellow-400 rounded-md p-4">
+      <h3 className="text-2xl font-semibold mb-5">
+        Finish This Ride
+      </h3>
+      <div className="flex items-center justify-between border-2 border-yellow-400 rounded-md p-4">
         <div className="flex items-center gap-3 mt-4 ">
           <img
             className="h-10 w-10 rounded-full object-cover"
@@ -56,41 +54,18 @@ const ConfirmRidePopup = (props) => {
             </div>
           </div>
         </div>
-        <div className='mt-4 w-full'>
-          <form
-            onSubmit={(e)=>{
-              submitHandler(e)
-            }}
-          >
-            <input  
-              className='bg-[#eeee] px-6 py-4 font-mono text-lg rounded-lg-full mt-3 w-full'
-              type='text'
-              value={otp}
-              onChange={(e)=>{
-                setOtp(e.target.value)
-              }}
-              placeholder='Enter OTP'
-            />
-            <Link 
-              to='/captain-riding'
+        <div className="mt-4 w-full">
+            <Link
+              to="/captain-home"
               className="w-full flex justify-center bg-green-600 text-white font-semibold p-2 rounded-lg mt-5"
             >
-              Confirm
+              Finish Ride
             </Link>
-            <button
-              onClick={() => {
-                props.setConfirmRidePopupPanel(false)
-                props.setRidePopupPanel(false)
-              }}
-              className="w-full bg-red-600 text-white font-semibold p-2 rounded-lg mt-2"
-            >
-              Cancel
-            </button>
-          </form>
+            <p className='text-red-500 mt-5 text-xs'>Click on finish ride button if you have completed the payment.</p>
         </div>
       </div>
     </div>
   );
 };
 
-export default ConfirmRidePopup;
+export default FinishRide;

@@ -1,8 +1,28 @@
-import React from "react";
+import React,{useState,useRef} from "react";
 import { Link } from "react-router-dom";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import FinishRide from "../components/FinishRide";
+
 const CaptainRiding = () => {
+
+  const [finisishRidePanel,setFinishRidePanel] = useState(false)
+  const finishRidePanelRef = useRef(null)
+
+  useGSAP(function(){
+    if(finisishRidePanel){
+        gsap.to(finishRidePanelRef.current,{
+            transform:'translateY(0)'
+        })
+    }else{
+        gsap.to(finishRidePanelRef.current,{
+            transform:'translateY(100%)'
+        })
+    }
+  },[finisishRidePanel])
+
   return (
-    <div className="h-screen">
+    <div className="h-screen ">
       <div className="fixed p-3 top-0 flex items-center justify-between w-screen">
         <img
           className="w-16"
@@ -17,14 +37,33 @@ const CaptainRiding = () => {
         </Link>
       </div>
 
-      <div className="h-3/5">
+      <div className="h-4/5">
         <img
           className="h-full w-full object-cover"
           src="https://www.researchgate.net/publication/323759986/figure/fig3/AS:631576123682823@1527590890164/Map-in-Uber-application-tracking-user-in-a-Yellow-Cab.png"
         />
       </div>
-      <div className="h-2/5 p-6">
+      <div 
+        className="h-1/5 p-6 flex items-center justify-between bg-yellow-400"
+        onClick={()=>{
+          setFinishRidePanel(true)
+        }}
+      >
+        <h5   
+          className='p-1 text-center w-[90%] absolute top-[665px] left-[0px]'
+          onClick={()=>{
 
+          }}
+        >
+          <i className='text-3xl text-gray-800 ri-arrow-up-wide-line'></i>
+        </h5>
+        <h4 className="text-xl font-semibold">4 km away</h4>
+        <button className="bg-green-600 text-white font-semibold p-3 px-10 rounded-lg">Complete Ride</button>
+      </div>
+      <div ref={finishRidePanelRef} className='fixed w-full z-10 bottom-0 translate-y-full bg-white px-3 py-10 pt-12'>
+        <FinishRide
+          setFinishRidePanel = {setFinishRidePanel}
+        />
       </div>
     </div>
   );

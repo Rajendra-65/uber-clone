@@ -40,7 +40,7 @@ const LookingForDriver = (props) => {
                             >562/11-A</h3>
                             <p
                                 className='text-sm -mt-1 text-gray-600'
-                            >Kankariya Tablab, Bhopal</p>
+                            >{props.pickup}</p>
                         </div>
                     </div>
                     <div
@@ -57,7 +57,7 @@ const LookingForDriver = (props) => {
                             >562/11-A</h3>
                             <p
                                 className='text-sm -mt-1 text-gray-600'
-                            >Kankariya Tablab, Bhopal</p>
+                            >{props.destination}</p>
                         </div>
                     </div>
                     <div
@@ -71,7 +71,7 @@ const LookingForDriver = (props) => {
                         >
                             <h3
                                 className='text-lg font-medium'
-                            >₹193.00</h3>
+                            >₹{props.fare[props.vehicleType]}</h3>
                             <p
                                 className='text-sm -mt-1 text-gray-600'
                             >Cash Cash</p>

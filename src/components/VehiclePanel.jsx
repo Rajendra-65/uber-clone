@@ -19,6 +19,7 @@ const VehiclePanelOpen = (props) => {
                     className='flex border-2 mb-2 active:border-black rounded-md items-center w-full justify-between'
                     onClick={()=>{
                         props.setConfirmRidePanel(true)
+                        props.selectVehicle('car')
                     }}
                 >
                     <img 
@@ -48,12 +49,13 @@ const VehiclePanelOpen = (props) => {
                     <h2
                         className='text-xl font-semibold mr-2'
                     >
-                    ₹193
+                        ₹{props.fare.car}
                     </h2>
                 </div>
                 <div 
                     onClick={()=>{
                         props.setConfirmRidePanel(true)
+                        props.selectVehicle('moto')
                     }}
                     className='flex border-2 mb-2 active:border-black rounded-md items-center w-full justify-between'
                 >
@@ -84,12 +86,13 @@ const VehiclePanelOpen = (props) => {
                     <h2
                         className='text-xl font-semibold mr-2'
                     >
-                    ₹65.00
+                        ₹{props.fare.moto}
                     </h2>
                 </div>
                 <div 
                     onClick={()=>{
                         props.setConfirmRidePanel(true)
+                        props.selectVehicle('auto')
                     }}
                     className='flex border-2 mb-2 active:border-black rounded-md items-center w-full justify-between'
                 >
@@ -120,7 +123,7 @@ const VehiclePanelOpen = (props) => {
                     <h2
                         className='text-xl font-semibold mr-2'
                     >
-                    ₹118.68
+                    ₹{props.fare.auto}
                     </h2>
                 </div>
         </div>

@@ -39,7 +39,7 @@ const ConfirmRide = (props) => {
                             >562/11-A</h3>
                             <p
                                 className='text-sm -mt-1 text-gray-600'
-                            >Kankariya Tablab, Bhopal</p>
+                            >{props.pickup}</p>
                         </div>
                     </div>
                     <div
@@ -56,7 +56,7 @@ const ConfirmRide = (props) => {
                             >562/11-A</h3>
                             <p
                                 className='text-sm -mt-1 text-gray-600'
-                            >Kankariya Tablab, Bhopal</p>
+                            >{props.destination}</p>
                         </div>
                     </div>
                     <div
@@ -70,7 +70,7 @@ const ConfirmRide = (props) => {
                         >
                             <h3
                                 className='text-lg font-medium'
-                            >₹193.00</h3>
+                            >₹{props.fare[props.vehicleType]}</h3>
                             <p
                                 className='text-sm -mt-1 text-gray-600'
                             >Cash Cash</p>
@@ -81,6 +81,7 @@ const ConfirmRide = (props) => {
                     onClick={()=>{
                         props.setVehicleFound(true)
                         props.setConfirmRidePanel(false)
+                        props.createRide()
                     }}
                     className='w-full bg-green-600 text-white font-semibold p-2 rounded-lg mt-5'>Confirm</button>
             </div>
